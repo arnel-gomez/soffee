@@ -93,7 +93,7 @@ $this->router->post('/', function (Request $request) {
         }
 
         if (!is_dir(storage_path('app'))) {
-            \File::makeDirectory( storage_path('app'), 0775, true);
+            File::makeDirectory(storage_path('app'), 0775, true);
         }
         $tmpZip = storage_path('app/installer_' . uniqid() . '.zip');
         try {
