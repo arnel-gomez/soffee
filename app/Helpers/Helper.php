@@ -48,7 +48,7 @@ if (!function_exists('theme_public_asset')) {
     function theme_public_asset($path)
     {
         $theme = app()->bound('theme') ? app('theme') : '';
-        return asset("resources/themes/{$theme}/public/{$path}");
+        return asset("resources/themes/{$theme}/{$path}");
     }
 }
 
@@ -116,7 +116,7 @@ if (!function_exists('theme_vite')) {
             return new HtmlString($viteClient . "\n" . $themeAsset);
         }
 
-        $manifestPath = base_path("resources/themes/{$theme}/public/.vite/manifest.json");
+        $manifestPath = base_path("resources/themes/{$theme}/.vite/manifest.json");
         if (!file_exists($manifestPath)) {
             return new HtmlString("<!-- Vite manifest not found for theme {$theme} -->");
         }
@@ -128,11 +128,11 @@ if (!function_exists('theme_vite')) {
         $html = '';
         if (!empty($manifest[$filePath]['css'])) {
             foreach ($manifest[$filePath]['css'] as $css) {
-                $cssPath = "/resources/themes/{$theme}/public/" . $css;
+                $cssPath = "/resources/themes/{$theme}/{$css}";
                 $html .= '<link rel="stylesheet" href="' . asset($cssPath) . '">' . PHP_EOL;
             }
         }
-        $jsPath = "/resources/themes/{$theme}/public/" . $manifest[$filePath]['file'];
+        $jsPath = "/resources/themes/{$theme}/{$manifest[$filePath]['file']}";
         $html .= '<script type="module" src="' . asset($jsPath) . '"></script>';
         return new HtmlString($html);
     }
